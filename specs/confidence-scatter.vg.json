@@ -1,24 +1,29 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "title": "Distribution of Fire Radiative Power",
+  "title": "Fire Detection Confidence vs Intensity",
   "width": 600,
-  "height": 300,
+  "height": 400,
   "data": {"url": "data/australian_fires.csv"},
   "transform": [
-    {"calculate": "toNumber(datum.frp)", "as": "frp_numeric"},
-    {"filter": "datum.frp_numeric <= 500"}
+    {"filter": "datum.frp <= 500"},
+    {"sample": 2000}
   ],
-  "mark": "bar",
+  "mark": {"type": "circle", "opacity": 0.3, "size": 10, "color": "steelblue"},
   "encoding": {
     "x": {
-      "field": "frp_numeric",
+      "field": "frp",
       "type": "quantitative",
-      "bin": true,
-      "title": "Fire Radiative Power"
+      "title": "Fire Radiative Power (FRP)"
     },
     "y": {
-      "aggregate": "count",
-      "title": "Number of Fires"
-    }
+      "field": "confidence",
+      "type": "quantitative",
+      "title": "Detection Confidence"
+    },
+    "tooltip": [
+      {"field": "frp", "type": "quantitative", "title": "FRP", "format": ".1f"},
+      {"field": "confidence", "type": "quantitative", "title": "Confidence"}
+    ]
   }
 }
+
