@@ -4,13 +4,15 @@
   "width": 600,
   "height": 300,
   "data": {"url": "data/australian_fires.csv"},
+  "transform": [
+    {"filter": "datum.frp <= 500"}
+  ],
   "mark": {"type": "bar", "color": "steelblue"},
   "encoding": {
     "x": {
       "field": "frp",
       "type": "quantitative",
       "bin": {"step": 50},
-      "scale": {"domain": [0,600]},
       "title": "Fire Radiative Power"
     },
     "y": {
@@ -22,6 +24,4 @@
       {"aggregate": "count", "type": "quantitative", "title": "Count"}
     ]
   }
-
 }
-
