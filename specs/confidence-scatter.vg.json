@@ -3,7 +3,7 @@
   "title": "Fire Detection Confidence vs Intensity",
   "width": 600,
   "height": 400,
-  "data": {"url": "../data/australian_fires.csv"},
+  "data": {"url": "data/australian_fires.csv"},
   "transform": [
     {"filter": "datum.frp <= 500"},
     {"sample": 2000}
@@ -25,4 +25,5 @@
       {"field": "confidence", "type": "quantitative", "title": "Confidence"}
     ]
   }
+
 }
