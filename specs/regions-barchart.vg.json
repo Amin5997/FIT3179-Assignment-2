@@ -1,0 +1,31 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Fire Counts by Geographic Region",
+  "width": 700,
+  "height": 400,
+  "data": {"url": "../data/australian_fires.csv"},
+  "transform": [
+    {"calculate": "round(datum.latitude / 5) * 5", "as": "lat_region"},
+    {"calculate": "round(datum.longitude / 5) * 5", "as": "lon_region"},
+    {"calculate": "'Lat ' + toString(datum.lat_region) + ', Lon ' + toString(datum.lon_region)", "as": "region"}
+  ],
+  "mark": {"type": "bar", "color": "darkorange"},
+  "encoding": {
+    "x": {
+      "field": "region",
+      "type": "nominal",
+      "title": "Geographic Region (5° grid)",
+      "sort": {"encoding": "y", "order": "descending"},
+      "axis": {"labelAngle": -45}
+    },
+    "y": {
+      "aggregate": "count",
+      "field": "*",
+      "title": "Number of Fires"
+    },
+    "tooltip": [
+      {"field": "region", "type": "nominal", "title": "Region"},
+      {"aggregate": "count", "field": "*", "type": "quantitative", "title": "Fire Count"}
+    ]
+  }
+}

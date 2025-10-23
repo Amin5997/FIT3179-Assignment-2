@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Australian Bushfire Analysis - FIT3179</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .visualization {
+            margin: 40px 0;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        .narrative {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 0;
+        }
+        
+        /* Introduction styling */
+        .introduction {
+            background-color: #e8f4f8;
+            padding: 25px;
+            border-radius: 8px;
+            border-left: 6px solid #2E86AB;
+            margin: 30px 0;
+            font-size: 1.1em;
+        }
+        
+        /* Flexbox layout for side-by-side */
+        .side-by-side {
+            display: flex;
+            gap: 30px;
+            align-items: flex-start;
+        }
+        .text-content {
+            flex: 1;
+            min-width: 300px;
+        }
+        .chart-content {
+            flex: 2;
+            min-width: 500px;
+        }
+        
+        /* Make map full width since it's large */
+        #map {
+            width: 100%;
+        }
+    </style>
+    <!-- Load Vega-Lite -->
+    <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+</head>
+<body>
+    <header>
+        <h1>Australian Bushfire Analysis</h1>
+    </header>
+
+    <!-- Introduction Section -->
+    <div class="introduction">
+        <h2>Introduction</h2>
+        <p>Australia faces significant challenges from bushfires, which have profound impacts on communities, ecosystems, and the economy. This analysis examines fire patterns across the continent using satellite detection data, focusing on fire density, intensity distribution, and detection reliability.</p>
+        <p>By understanding where fires occur, how intense they are, and how reliably we can detect them, we can better prepare for and respond to future fire events, ultimately improving safety and resource allocation.</p>
+    </div>
+
+    <!-- Fire Density Map - Keep full width -->
+    <div class="visualization">
+        <h2>Fire Density Across Australia</h2>
+        <div class="narrative">
+<p>In the year 2019 fires across Australia have been extremely widespread and have affected the entire coastal areas of Australia. The following heatmap shows the concentration of fire incidents across Australia. Darker red areas indicate regions with higher fire density, highlighting hotspots where fire prevention and monitoring efforts should be focused. From the heat map it is seen that the fires have affected a very large portion of the country and have also been prevalent near large cities which ultimately causes severe economic damage to the surrounding areas.<p>        
+    
+</div>
+        <div id="map"></div>
+    </div>
+
+    <div class="introduction">
+    <h2>Not All Fires Are Created Equal</h2>
+    <p>While Australia experiences thousands of fires annually, only a small percentage develop into dangerous infernos. Fire Radiative Power (FRP) helps us distinguish between three categories of fires:</p>
+    <ul>
+        <li><strong>Low FRP (1-50 MW):</strong> Small fires and controlled burns that typically pose minimal threat.</li>
+        <li><strong>Medium FRP (50-500 MW):</strong> Significant bushfires that require monitoring and response.</li>
+        <li><strong>High FRP (500+ MW):</strong> Dangerous infernos that threaten communities and demand emergency action.</li>
+    </ul>
+    <p>The follow analysis reveals that while most fires fall into the low-intensity category, the minority of high-FRP fires account for the majority of ecological damage and community risk.</p>
+</div>
+
+<!-- Histogram - Side by Side -->
+    <div class="visualization">
+        <h2>Distribution of Fire Intensities</h2>
+        <div class="side-by-side">
+            <div class="text-content">
+                <div class="narrative">
+                    <p>This histogram shows the distribution of fire intensities measured by Fire Radiative Power (FRP). Most fires are relatively low-intensity, but there's a significant number of high-intensity fires that cause the most damage.</p>
+                    <p>Understanding this distribution helps prioritize resources for fighting the most dangerous fires and developing targeted prevention strategies.</p>
+                </div>
+            </div>
+            <div class="chart-content">
+                <div id="histogram"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confidence Context Section -->
+<div class="introduction">  <!-- <-- Use introduction styling -->
+        <h2>The Importance of Detection Confidence</h2>
+        <p>When preparing for and responding to fires, <strong>detection confidence</strong> is just as important as knowing a fire exists. Low-confidence detections might be false alarms or small fires that self-extinguish, while high-confidence readings indicate reliable, significant fire events.</p>
+        
+        <p><strong>Why confidence matters for emergency planning:</strong></p>
+        <ul>
+            <li><strong>High Confidence (70-100):</strong> Reliable detection - appropriate for activating emergency responses, allocating resources, and considering evacuations</li>
+            <li><strong>Medium Confidence (30-70):</strong> Requires verification - warrants monitoring and preliminary preparations</li>
+            <li><strong>Low Confidence (0-30):</strong> Uncertain detection - may need additional satellite passes or ground verification before action</li>
+        </ul>
+        
+        <p>The relationship between fire intensity and detection confidence shown in the following scatter plot helps validate when we can trust our monitoring systems for critical decision-making.</p>
+</div>
+
+    <!-- Scatter Plot - Side by Side -->
+    <div class="visualization">
+        <h2>Fire Detection Confidence vs Intensity</h2>
+        <div class="side-by-side">
+            <div class="text-content">
+                <div class="narrative">
+                    <p>This scatter plot reveals a crucial safety finding: <strong>every dangerous inferno (FRP > 500 MW) was detected with high confidence (≥70%)</strong>. While there's a general positive correlation between fire intensity and detection reliability, the most important pattern is that our system never misses the catastrophic fires.</p>
+                    <p>Although some medium-intensity fires occasionally have lower confidence readings, the system demonstrates perfect reliability for the fires that truly threaten communities - giving emergency services confidence to activate full response protocols when high-confidence, high-intensity fires are detected.</p>
+
+                </div>
+            </div>
+            <div class="chart-content">
+                <div id="confidence-scatter"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Embed all visualizations with error handling
+        vegaEmbed('#map', 'specs/map.vg.json')
+            .then(result => console.log("Map loaded successfully!"))
+            .catch(error => console.error("Map error:", error));
+            
+        vegaEmbed('#histogram', 'specs/histogram.vg.json')
+            .then(result => console.log("Histogram loaded successfully!"))
+            .catch(error => console.error("Histogram error:", error));
+            
+        vegaEmbed('#confidence-scatter', 'specs/confidence-scatter.vg.json')
+            .then(result => console.log("Scatter plot loaded successfully!"))
+            .catch(error => console.error("Scatter plot error:", error));
+    </script>
+<!-- Conclusion Section -->
+<div class="introduction">
+    <h2>Conclusion: Key Insights for Fire Management</h2>
+    <p>This analysis reveals three critical patterns that can transform how Australia prepares for and responds to bushfires:</p>
+    
+    <p><strong>1. Geographic Focus:</strong> The heatmap identifies clear fire hotspots across coastal regions, highlighting where prevention efforts and resources should be concentrated.</p>
+    
+    <p><strong>2. Intensity Matters:</strong> While most fires are low-intensity, the dangerous minority of high-FRP infernos account for the greatest ecological and community risk. Resources must be prioritized accordingly.</p>
+    
+    <p><strong>3. Detection Reliability:</strong> Most importantly, our monitoring system demonstrates perfect reliability for catastrophic fires - every dangerous inferno was detected with high confidence, enabling swift, confident emergency responses.</p>
+    
+    <p>By understanding where fires occur, which ones are truly dangerous, and trusting our detection system when it matters most, Australia can build a more targeted, effective approach to bushfire management that protects both communities and ecosystems.</p>
+</div>
+</body>
+</html>

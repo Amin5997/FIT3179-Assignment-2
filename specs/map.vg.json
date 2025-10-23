@@ -1,0 +1,42 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Australian Bushfire Density Heatmap",
+  "width": 800,
+  "height": 500,
+  "projection": {"type": "mercator"},
+  "layer": [
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/tonywu71/world-atlas/master/australia.geojson",
+        "format": {"type": "geojson"}
+      },
+      "mark": {"type": "geoshape", "fill": "#f0f0f0", "stroke": "white", "strokeWidth": 0.5}
+    },
+    {
+      "data": {"url": "../data/australian_fires.csv"},
+      "mark": "rect",
+      "encoding": {
+        "x": {
+          "field": "longitude",
+          "type": "quantitative",
+          "bin": {"maxbins": 100}
+        },
+        "y": {
+          "field": "latitude",
+          "type": "quantitative",
+          "bin": {"maxbins": 100}
+        },
+        "color": {
+          "aggregate": "count",
+          "type": "quantitative",
+          "scale": {"scheme": "yelloworangered"},
+          "legend": {"title": "Number of Fires"}
+        },
+        "tooltip": [
+          {"aggregate": "count", "type": "quantitative", "title": "Number of Fires"}
+        ]
+      }
+    }
+  ],
+  "config": {"view": {"stroke": "transparent"}}
+}

@@ -1,0 +1,25 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Distribution of Fire Radiative Power",
+  "width": 600,
+  "height": 300,
+  "data": {"url": "../data/australian_fires.csv"},
+  "mark": {"type": "bar", "color": "steelblue"},
+  "encoding": {
+    "x": {
+      "field": "frp",
+      "type": "quantitative",
+      "bin": {"step": 50},
+      "scale": {"domain": [0,600]},
+      "title": "Fire Radiative Power"
+    },
+    "y": {
+      "aggregate": "count",
+      "title": "Number of Fires"
+    },
+    "tooltip": [
+      {"field": "frp", "bin": true, "type": "quantitative", "title": "FRP Range"},
+      {"aggregate": "count", "type": "quantitative", "title": "Count"}
+    ]
+  }
+}
