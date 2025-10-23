@@ -3,7 +3,7 @@
   "title": "Distribution of Fire Radiative Power",
   "width": 600,
   "height": 300,
-  "data": {"url": "../data/australian_fires.csv"},
+  "data": {"url": "data/australian_fires.csv"},
   "mark": {"type": "bar", "color": "steelblue"},
   "encoding": {
     "x": {
@@ -22,4 +22,5 @@
       {"aggregate": "count", "type": "quantitative", "title": "Count"}
     ]
   }
+
 }
