@@ -12,7 +12,7 @@
     "x": {
       "field": "frp",
       "type": "quantitative",
-      "bin": {"step": 50},
+      "bin": {"maxbins": 15},
       "title": "Fire Radiative Power"
     },
     "y": {
